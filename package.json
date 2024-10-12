@@ -1,7 +1,8 @@
 {
-  "name": "2raab-playset-generator",
+  "name": "2r1b-playset-generator",
   "version": "0.0.0",
   "description": "An app for generating random playsets for the game Two Rooms and a Boom",
+  "type": "module",
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -9,6 +10,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^22.7.5",
     "solid-devtools": "^0.29.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",

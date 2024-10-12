@@ -1,7 +1,8 @@
 {
-    "cSpell.words": [
-        "Playset",
-        "playsets"
-    ],
-    "cSpell.language": "en"
+  "cSpell.words": ["NECROBOOMICON", "Playset", "playsets"],
+  "cSpell.language": "en",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc"
 }
