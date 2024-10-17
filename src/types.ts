@@ -1,6 +1,6 @@
 import type { Expansion, Tag, Team } from '@/constants.ts'
 
-export type Character = {
+export interface Character {
   /**
    * Teams that include this character. If multiple teams are specified, there is one copy of this
    * character for each team.
@@ -36,6 +36,6 @@ export type Character = {
 
   /** What expansion includes this character? Base game characters omit this field. */
   readonly expansion?: Expansion
-  /** Attribute tags for this character. Used to allow filtering of included characters */
+  /** Attribute tags for this character. Used to allow filtering of included characters. */
   readonly tags?: readonly Tag[]
 }

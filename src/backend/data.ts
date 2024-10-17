@@ -5,7 +5,7 @@ import type { Character } from '@/types.ts'
 export const genericCharacterId = 'generic'
 /**
  * The character data for the "generic" character, which is a member of the Blue or Red team with
- * no special ability
+ * no special ability.
  */
 export const genericCharacter: Character = {
   teams: [Team.Blue, Team.Red],

@@ -4,5 +4,8 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.configPath": ".prettierrc"
+  "prettier.configPath": ".prettierrc",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }
