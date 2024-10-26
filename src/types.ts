@@ -1,4 +1,4 @@
-import type { Expansion, Tag, Team } from '@/constants.ts'
+import type { Expansion, Tag, Team, Variant } from '@/constants.ts'
 
 export interface Character {
   /**
@@ -11,8 +11,7 @@ export interface Character {
    * character remains in the game.
    */
   readonly substitute?: string
-
-  /** ID's of other characters that need to be included if this character is included. */
+  /** ID's of other characters that must to be included if this character is included. */
   readonly linked?: readonly string[]
   /** ID's of other characters that cannot be included if this character is included. */
   readonly incompatible?: readonly string[]
@@ -33,7 +32,23 @@ export interface Character {
    * @returns Whether this character is recommended at the given player count.
    */
   readonly goodPlayerCount?: (count: number) => boolean
-
+  /**
+   * At least one other character with each of these tags must be included if this character is to
+   * be included.
+   */
+  readonly validTags?: readonly Tag[]
+  /**
+   * Characters with these tags are recommended to be included if this character is included. Will
+   * only be checked against characters not already explicitly linked to this character via the
+   * `linked` or `recommended` fields.
+   */
+  readonly goodTags?: readonly Tag[]
+  /** Characters with these tags are not recommended to be included if this character is included. */
+  readonly badTags?: readonly Tag[]
+  /** Rule variants that must be used to include this character. */
+  readonly validVariants?: readonly Variant[]
+  /** Rule variants that are recommended to be used when including this character. */
+  readonly goodVariants?: readonly Variant[]
   /** What expansion includes this character? Base game characters omit this field. */
   readonly expansion?: Expansion
   /** Attribute tags for this character. Used to allow filtering of included characters. */

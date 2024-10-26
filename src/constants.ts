@@ -2,19 +2,19 @@ export const enum Expansion {
   Necroboomicon,
 }
 
-/** The maximum amount of generic "X Team" cards that can be dealt for each team. */
-export const MAX_GENERIC_CHARACTERS = 7
-
 export const enum Tag {
-  // Official tags (as per character guides)
   Acting,
-  Bury,
   CardSharePower,
+  CardSwap,
   ColorSharePower,
-  Condition,
-  OddPlayerCount,
+  Contagious,
+  /** Only includes the conditions it is possible for the Medic to cure. */
+  MedicCondition,
+  Pause,
   PrivateRevealPower,
+  /** Only includes the "coy", "paranoid", and "shy" conditions. */
   PsychCondition,
+  PublicRevealPower,
   Verbalization,
 }
 
@@ -29,4 +29,9 @@ export const enum Team {
   Black,
   BlueRed,
   Seek,
+}
+
+export const enum Variant {
+  Burying,
+  PrivacyPromise,
 }
