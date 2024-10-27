@@ -27,21 +27,6 @@ export default tseslint.config(
       ],
       'jsdoc/require-description': 'warn',
       'jsdoc/require-description-complete-sentence': 'warn',
-      'jsdoc/require-jsdoc': [
-        'warn',
-        {
-          publicOnly: { esm: true },
-          require: {
-            ArrowFunctionExpression: true,
-            ClassDeclaration: true,
-            ClassExpression: true,
-            FunctionDeclaration: true,
-            FunctionExpression: true,
-            MethodDefinition: true,
-          },
-          checkConstructors: false,
-        },
-      ],
       'jsdoc/sort-tags': 'warn',
 
       // Disable JSDoc rules made redundant by Prettier

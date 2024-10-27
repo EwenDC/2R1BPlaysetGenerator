@@ -1,5 +1,19 @@
 export const enum Expansion {
-  Necroboomicon,
+  // Start at 1 so we don't have implicit falsy values
+  Necroboomicon = 1,
+}
+
+export const enum Required {
+  Never,
+  WhenPossible,
+  Always,
+}
+
+export const enum Result {
+  Good,
+  Discouraged,
+  Invalid,
+  Duplicate,
 }
 
 export const enum Tag {
@@ -8,7 +22,7 @@ export const enum Tag {
   CardSwap,
   ColorSharePower,
   Contagious,
-  /** Only includes the conditions it is possible for the Medic to cure. */
+  /** Only includes conditions it is possible for the Medic to cure. */
   MedicCondition,
   Pause,
   PrivateRevealPower,

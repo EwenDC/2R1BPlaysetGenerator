@@ -1,4 +1,4 @@
-import type { Expansion, Tag, Team, Variant } from '@/constants.ts'
+import type { Expansion, Required, Result, Tag, Team, Variant } from '@/constants.ts'
 
 export interface Character {
   /**
@@ -54,3 +54,33 @@ export interface Character {
   /** Attribute tags for this character. Used to allow filtering of included characters. */
   readonly tags?: readonly Tag[]
 }
+
+export type CharacterList = {
+  readonly id: string
+  readonly team: Team
+}[]
+
+export type SetupPool = {
+  readonly id: string
+  teams: Team[]
+}[]
+
+export interface SetupSettings {
+  readonly playerCount: number
+  readonly expansions: readonly Expansion[]
+  readonly variants: readonly Variant[]
+  readonly useRecommended: Required
+  readonly excludedTags: readonly Tag[]
+}
+
+export type ValidationResponse =
+  | {
+      readonly status: Result.Good | Result.Duplicate
+      readonly message?: never
+      readonly otherId?: never
+    }
+  | {
+      readonly status: Result.Discouraged | Result.Invalid
+      readonly message: string
+      readonly otherId?: string
+    }
