@@ -1,68 +1,24 @@
-import { createSignal, type Accessor, type Setter, createMemo } from 'solid-js'
+/** A subclass of Array that allows for committing and rolling back changes. */
+export class SavableArray<T> extends Array<T> {
+  private readonly committed: T[]
 
-export class SavableArray<T> {
-  private readonly committedItems: Accessor<T[]>
-  private readonly setCommittedItems: Setter<T[]>
-
-  private readonly addedItems: Accessor<T[]>
-  private readonly setAddedItems: Setter<T[]>
-
-  private readonly removedItems: T[] = []
-
-  readonly read: Accessor<readonly T[]>
-
-  constructor(initialItems: T[] = []) {
-    const [committedItems, setCommittedItems] = createSignal(initialItems)
-    this.committedItems = committedItems
-    this.setCommittedItems = setCommittedItems
-
-    const [addedItems, setAddedItems] = createSignal<T[]>([])
-    this.addedItems = addedItems
-    this.setAddedItems = setAddedItems
-
-    this.read = createMemo(() => [...committedItems(), ...addedItems()])
+  /**
+   * Create a new SavableArray. The initial array state is stored as the committed value.
+   * @param items The items to initialize the array with.
+   */
+  constructor(...items: T[]) {
+    super(...items)
+    // Use an array constructor so the behavior is consistent with the super call
+    this.committed = new Array(...items)
   }
 
-  add(item: T) {
-    this.setAddedItems((items) => [...items, item])
-  }
-
-  remove(index: number) {
-    const committedLength = this.committedItems().length
-    // Does the provided index fall within the committed items list?
-    if (index < committedLength) {
-      // Remove the item from the committed list, but keep a backup of it in the removed list
-      let removedItem: T | undefined
-      this.setCommittedItems((items) => {
-        removedItem = items.splice(index, 1)[0]
-        return items
-      })
-      if (removedItem) this.removedItems.push(removedItem)
-    } else {
-      // Remove the item from the added list
-      this.setAddedItems((items) => {
-        // Adjust the index so it's relative to the added items list
-        items.splice(index - committedLength, 1)
-        return items
-      })
-    }
-  }
-
+  /** Commit the current state of the array, allowing it to be reset to this state later. */
   commit() {
-    const addedItems = this.addedItems()
-    if (addedItems.length > 0) {
-      this.setCommittedItems((items) => [...items, ...addedItems])
-      this.setAddedItems([])
-    }
-    // I have yet to decide if JavaScript supporting length assignment is horrifying or genius
-    this.removedItems.length = 0
+    this.committed.splice(0, Infinity, ...this)
   }
 
+  /** Revert the array to the last committed state. */
   rollback() {
-    if (this.removedItems.length > 0) {
-      this.setCommittedItems((items) => [...items, ...this.removedItems])
-      this.removedItems.length = 0
-    }
-    if (this.addedItems().length > 0) this.setAddedItems([])
+    this.splice(0, Infinity, ...this.committed)
   }
 }

@@ -1,4 +1,4 @@
-import type { Character, CharacterList, SetupSettings, ValidationResponse } from '@/types.ts'
+import type { Character, CharacterEntry, SetupSettings, ValidationResponse } from '@/types.ts'
 import { characters } from '@/backend/data.ts'
 import { Result, Team } from '@/constants.ts'
 
@@ -76,7 +76,7 @@ export function CharacterValidInSetup(
 export function CharacterValidInPool(
   characterId: string,
   characterTeams: readonly Team[],
-  existingList: CharacterList,
+  existingList: readonly CharacterEntry[],
 ): ValidationResponse {
   // First lookup the character data
   const character = characters[characterId]

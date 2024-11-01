@@ -1,25 +1,22 @@
-import type { CharacterList, SetupPool, SetupSettings } from '@/types.ts'
+import type { CharacterEntry, SetupPoolEntry, SetupSettings } from '@/types.ts'
 import { characters } from '@/backend/data.ts'
 import { CharacterValidInSetup } from '@/backend/validations.ts'
 import { Required, Result } from '@/constants.ts'
+import { SavableArray } from './savableArray.ts'
 
 export class Playset {
-  private confirmedSelection: CharacterList = []
-  private confirmedPool: SetupPool = []
-  private confirmedBackupPool: SetupPool = []
+  private readonly workingSelection = new SavableArray<CharacterEntry>()
+  private readonly workingPool = new SavableArray<SetupPoolEntry>()
+  private readonly workingBackupPool = new SavableArray<SetupPoolEntry>()
 
-  private workingSelection: CharacterList = []
-  private workingPool: SetupPool = []
-  private workingBackupPool: SetupPool = []
-
-  get characterSelection(): CharacterList {
-    return [...this.confirmedSelection, ...this.workingSelection]
+  get characterSelection(): readonly CharacterEntry[] {
+    return this.workingSelection
   }
-  get setupPool(): SetupPool {
-    return [...this.confirmedPool, ...this.workingPool]
+  get setupPool(): readonly SetupPoolEntry[] {
+    return this.workingPool
   }
-  get backupPool(): SetupPool {
-    return [...this.confirmedBackupPool, ...this.workingBackupPool]
+  get backupPool(): readonly SetupPoolEntry[] {
+    return this.workingBackupPool
   }
 
   constructor(settings: SetupSettings) {
@@ -33,10 +30,12 @@ export class Playset {
       // Include recommended characters in the pool (or everything if we're ignoring recommendations)
       // Put discouraged characters in the backup pool (if we're not enforcing recommendations)
       if (result.status === Result.Good || settings.useRecommended === Required.Never) {
-        this.confirmedPool.push({ id, teams: [...character.teams] })
+        this.workingPool.push({ id, teams: [...character.teams] })
       } else if (settings.useRecommended !== Required.Always) {
-        this.confirmedBackupPool.push({ id, teams: [...character.teams] })
+        this.workingBackupPool.push({ id, teams: [...character.teams] })
       }
     }
+    this.workingPool.commit()
+    this.workingBackupPool.commit()
   }
 }

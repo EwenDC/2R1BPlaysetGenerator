@@ -53,8 +53,7 @@ export const characters: Readonly<Record<string, Character>> = {
   },
   ambassador: {
     teams: [Team.Blue, Team.Red],
-    // 11 or more players recommended
-    goodPlayerCount: (count) => count >= 11,
+    goodPlayerCount: moreThanTen,
   },
   anarchist: {
     teams: [Team.Grey],
@@ -322,8 +321,7 @@ export const characters: Readonly<Record<string, Character>> = {
     teams: [Team.Blue, Team.Red],
     recommended: ['psychologist', 'spy', 'engineer', 'doctor'],
     discouraged: ['privateEye'],
-    // Fewer than 11 players not recommended
-    goodPlayerCount: (count) => count >= 11,
+    goodPlayerCount: moreThanTen,
     tags: [Tag.CardSharePower, Tag.PsychCondition],
   },
   tinkerer: {

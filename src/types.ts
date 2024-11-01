@@ -55,15 +55,15 @@ export interface Character {
   readonly tags?: readonly Tag[]
 }
 
-export type CharacterList = {
+export interface CharacterEntry {
   readonly id: string
   readonly team: Team
-}[]
+}
 
-export type SetupPool = {
+export interface SetupPoolEntry {
   readonly id: string
   teams: Team[]
-}[]
+}
 
 export interface SetupSettings {
   readonly playerCount: number
