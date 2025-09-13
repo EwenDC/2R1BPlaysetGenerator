@@ -62,7 +62,7 @@ export interface CharacterEntry {
 
 export interface SetupPoolEntry {
   readonly id: string
-  teams: Team[]
+  teams: Set<Team>
 }
 
 export interface SetupSettings {

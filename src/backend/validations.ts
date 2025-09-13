@@ -10,7 +10,7 @@ import { Result, Team } from '@/constants.ts'
  * means the character is not recommended to be included but can be, and "Invalid" means the
  * character can not be included no matter what.
  */
-export function CharacterValidInSetup(
+export function characterValidInSetup(
   character: Character,
   settings: SetupSettings,
 ): ValidationResponse {
@@ -73,7 +73,7 @@ export function CharacterValidInSetup(
  * means the character is not recommended to be included but can be, "Invalid" means the character
  * can not be included no matter what, and "Duplicate" means the character is already in the pool.
  */
-export function CharacterValidInPool(
+export function characterValidInPool(
   characterId: string,
   characterTeams: readonly Team[],
   existingList: readonly CharacterEntry[],
